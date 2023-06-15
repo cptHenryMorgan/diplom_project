@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import static ru.netology.diplom_project.data.DataGenerator.getNumberByStatus;
 import static ru.netology.diplom_project.data.DataGenerator.symbols;
 
     public class YearHelper {
@@ -21,35 +22,35 @@ import static ru.netology.diplom_project.data.DataGenerator.symbols;
             return("");
         }
 
-        //заполнить поле год 1 цифры
-        public static String generateYearWith1number() {
+        //заполнить поле год 1ой цифрой
+        public static String generateYearWithOneNumber() {
             return fakerEN.numerify("#");}
 
-        //заполнить поле год 3 цифры
-        public static String generateYearWith3numbers() {
+        //заполнить поле год 3мя цифрами
+        public static String generateYearWithThreeNumbers() {
             return fakerEN.numerify("###");
         }
-        //заполнить поле год 2 нуля
-        public static String generateYearWith00numbers() {
+        //заполнить поле год 2мя нулями
+        public static String generateYearWith_00_numbers() {
             return("00");
         }
 
-        //заполнить поле год 2 спецсимвола
-        public static String generateYearWith2symbols() {
+        //заполнить поле год 2мя спецсимволами
+        public static String generateYearWithTwoSymbols() {
             return(symbols("#") + symbols("#"));
         }
 
-        //заполнить поле год 2 латинских буквы
-        public static String generateYearWith2Latin() {
+        //заполнить поле год 2мя латинскими буквами
+        public static String generateYearWithTwoLatinLetters() {
             return fakerEN.letterify("??");
         }
 
-        //заполнить поле год 2 буквы кириллица
-        public static String generateYearWith2Cyrillic() {
+        //заполнить поле год 2мя буквами кириллицы
+        public static String generateYearWithTwoCyrillicLetters() {
             return fakerRU.letterify("??");
         }
 
-        //ApprovedCard создать Year пустое поле
+        //ApprovedCard создать пустое поле Year
         public static DataGenerator.CardData approvedCardWithYearEmptyField() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
@@ -65,7 +66,7 @@ import static ru.netology.diplom_project.data.DataGenerator.symbols;
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year предыдущий год
+        //ApprovedCard создать Year предыдущий месяц
         public static DataGenerator.CardData approvedCardWithValidYearLastMonth() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(-1),
@@ -73,8 +74,8 @@ import static ru.netology.diplom_project.data.DataGenerator.symbols;
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year предыдущий год
-        public static DataGenerator.CardData approvedCardYearPlus6() {
+        //ApprovedCard создать Year плюс 6 лет от текущего
+        public static DataGenerator.CardData approvedCardYearPlusSix() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
                     YearHelper.generateYear(+6),
@@ -82,50 +83,58 @@ import static ru.netology.diplom_project.data.DataGenerator.symbols;
                     CVCHelper.generateValidCVC());
         }
         //ApprovedCard создать Year из 1 цифры
-        public static DataGenerator.CardData approvedCardWithYearOf1numbers() {
+        public static DataGenerator.CardData approvedCardWithYearWithOneNumber() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYearWith1number(),
+                    YearHelper.generateYearWithOneNumber(),
+                    HolderHelper.generateValidHolder(),
+                    CVCHelper.generateValidCVC());
+    }
+        //ApprovedCard создать Year из 3х цифр
+        public static DataGenerator.CardData approvedCardWithYearWithThreeNumbers() {
+            return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
+                    MonthHelper.generateMonth(0),
+                    YearHelper.generateYearWithThreeNumbers(),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year из 3 цифр
-        public static DataGenerator.CardData approvedCardWithYear2015() {
+        //ApprovedCard создать Year минус 6 лет от текущего
+        public static DataGenerator.CardData approvedCardWithYear2017() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYear(-8),
+                    YearHelper.generateYear(-6),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year из 00 цифр
-        public static DataGenerator.CardData approvedCardWithYearOf00numbers() {
+        //ApprovedCard создать Year из двух 00
+        public static DataGenerator.CardData approvedCardWithYearWith_00_numbers() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYearWith00numbers(),
+                    YearHelper.generateYearWith_00_numbers(),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year из 2symbols
-        public static DataGenerator.CardData approvedCardWithYearOf2symbols() {
+        //ApprovedCard создать Year из 2х спецсимволов
+        public static DataGenerator.CardData approvedCardWithYearWithTwoSymbols() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYearWith2symbols(),
+                    YearHelper.generateYearWithTwoSymbols(),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year из 2 Latin
-        public static DataGenerator.CardData approvedCardWithYearOf2Latin() {
+        //ApprovedCard создать Year из 2х Latin
+        public static DataGenerator.CardData approvedCardWithYearWithTwoLatinLetters() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYearWith2Latin(),
+                    YearHelper.generateYearWithTwoLatinLetters(),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }
-        //ApprovedCard создать Year из 2 Cyrillic
-        public static DataGenerator.CardData approvedCardWithYearOf2Cyrillic() {
+        //ApprovedCard создать Year из 2х Cyrillic
+        public static DataGenerator.CardData approvedCardWithYearWithTwoCyrillicLetters() {
             return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
                     MonthHelper.generateMonth(0),
-                    YearHelper.generateYearWith2Cyrillic(),
+                    YearHelper.generateYearWithTwoCyrillicLetters(),
                     HolderHelper.generateValidHolder(),
                     CVCHelper.generateValidCVC());
         }

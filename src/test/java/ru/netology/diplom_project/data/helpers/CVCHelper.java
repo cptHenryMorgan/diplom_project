@@ -5,6 +5,7 @@ import ru.netology.diplom_project.data.DataGenerator;
 
 import java.util.Locale;
 
+import static ru.netology.diplom_project.data.DataGenerator.getNumberByStatus;
 import static ru.netology.diplom_project.data.DataGenerator.symbols;
 
 public class CVCHelper {
@@ -18,32 +19,32 @@ public class CVCHelper {
     }
 
     //пустое поле CVC
-    private static String generateEmptyFieldCVC () {
+    public static String generateEmptyFieldCVC() {
         return ("");
     }
 
     //сгенерировать невалидный CVC с 1й цифрой
-    private static String generateInvalidCVCWithOneDigit() {
+    public static String generateInvalidCVCWithOneDigit() {
         return fakerEN.numerify("#");
     }
 
     //сгенерировать невалидный CVC с 4мя цифрами
-    private static String generateInvalidCVCWithFourDigit() {
+    public static String generateInvalidCVCWithFourDigit() {
         return fakerEN.numerify("####");
     }
 
     //сгенерировать невалидный CVC с 3мя случайными символами кириллицы
-    private static String generateInvalidCVCWithThreeSymbolsOfCyrillic() {
+    public static String generateInvalidCVCWithThreeSymbolsOfCyrillic() {
         return fakerRU.letterify("???");
     }
 
     //сгенерировать невалидный CVC с 3мя случайными символами латинницы
-    private static String generateInvalidCVCWithThreeSymbolsOfLatin() {
+    public static String generateInvalidCVCWithThreeSymbolsOfLatin() {
         return fakerEN.letterify("???");
     }
 
     //сгенерировать невалидный CVC с 3мя случайными спецсимволами
-    private static String generateInvalidCVCWithThreeSymbols() {
+    public static String generateInvalidCVCWithThreeSymbols() {
         return (symbols("#") + symbols("#") + symbols("#"));
     }
 
