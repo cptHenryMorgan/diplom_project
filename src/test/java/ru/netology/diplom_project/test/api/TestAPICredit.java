@@ -44,5 +44,4 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             assertEquals(200, statusCode);
         }
 
-        @Test
 }
