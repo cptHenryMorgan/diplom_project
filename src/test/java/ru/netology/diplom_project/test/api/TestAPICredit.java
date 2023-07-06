@@ -8,6 +8,8 @@ import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
 import ru.netology.diplom_project.data.helpers.*;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
     public class TestAPICredit {
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @AfterAll
         static void tearDownAll() {
             SelenideLogger.removeListener("allure");
+            await().atMost(16, SECONDS).until(newOrderWasAdded());
         }
 
         //Отправка POST запроса на кредит с валидно* заполненным body и Карта APPROVED на http://localhost:9999/credit
