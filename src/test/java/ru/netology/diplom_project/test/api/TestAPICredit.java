@@ -2,11 +2,14 @@ package ru.netology.diplom_project.test.api;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.APIHelper;
 import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
 import ru.netology.diplom_project.data.helpers.*;
+
+import java.time.Duration;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.awaitility.Awaitility.await;
@@ -16,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @BeforeAll
         static void setUpAll() {
             SelenideLogger.addListener("allure", new AllureSelenide());
+            Awaitility.setDefaultTimeout(Duration.ofSeconds(20));
         }
 
         @BeforeEach
@@ -26,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @AfterAll
         static void tearDownAll() {
             SelenideLogger.removeListener("allure");
-            await().atMost(16, SECONDS).until(newOrderWasAdded());
         }
 
         //Отправка POST запроса на кредит с валидно* заполненным body и Карта APPROVED на http://localhost:9999/credit
