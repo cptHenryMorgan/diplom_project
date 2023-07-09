@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 public class APIHelper {
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")//установить базовый Uri
-            .setPort(9999)//установить порт
+            .setPort(8080)//установить порт
             .setAccept(ContentType.JSON)//установить Принять
             .setContentType(ContentType.JSON)//установить тип контента
             .log(LogDetail.ALL)//Все детали журнала
@@ -22,7 +22,7 @@ public class APIHelper {
                 .spec(requestSpec)
                 .body(cardInfo)
                 .when()
-                .post("/payment")
+                .post("/api/v1/pay")
                 .getStatusCode();
         return statusCode;
     }
@@ -33,7 +33,7 @@ public class APIHelper {
                 .spec(requestSpec)
                 .body(cardInfo)
                 .when()
-                .post("/credit")
+                .post("/api/v1/credit")
                 .getStatusCode();
         return statusCode;
     }
