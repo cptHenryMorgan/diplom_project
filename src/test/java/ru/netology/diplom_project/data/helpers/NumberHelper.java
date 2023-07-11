@@ -150,7 +150,7 @@ public class NumberHelper {
     }
 
     //поля заполнены валидно, номер действующей карты пробелы в начале и в конце
-    public static DataGenerator.CardData dataWithCardNumberWithoutStartAndEndSpaces() {
+    public static DataGenerator.CardData dataWithCardNumberWithStartAndEndSpaces() {
         return new DataGenerator.CardData(
                 NumberHelper.generateValidCardNumberWithoutStartAndEndSpaces(),
                 MonthHelper.generateMonth(0),

@@ -26,7 +26,7 @@ public class MonthHelper {
 
     //заполнить поле месяц 3мя цифрами
     public static String generateMonthWithThreeNumbers() {
-        return fakerEN.numerify("###");
+        return fakerEN.numerify("12#");
     }
 
     //заполнить поле месяц 2мя нулями
