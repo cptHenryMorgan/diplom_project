@@ -15,6 +15,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
     public class TestAPICredit {
+
         @BeforeAll
         static void setUpAll() {
             Awaitility.setDefaultTimeout(Duration.ofSeconds(25));
@@ -52,7 +53,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
         //3. Отправка POST запроса с пустым body на http://localhost:8080/api/v1/credit
         //   Ожидаемый результат: статус 400, в БД не появляются новые записи
-        @Test
+        @Test//Баг, код 400 получен, но не обработан, появляется код ошибки 500
         @DisplayName("APICreditAC № 3 Credit For Services With Empty Fields")
         void creditForServicesWithCardEmptyFields() {
             int statusCode = APIHelper.getRequestStatusCodePayment(DataGenerator.CardEmptyFields());
@@ -61,7 +62,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
         //4. Отправка POST запроса на кредит с пустым значением у атрибута number в body (остальные данные заполнены валидно) на http://localhost:8080/api/v1/credit
         //   Ожидаемый результат: статус 400, в БД не появляются новые записи
-        @Test
+        @Test//Баг, код 400 получен, но не обработан, появляется код ошибки 500
         @DisplayName("APICreditAC № 4 Credit For Services With APPROVED Card Empty Field Number")
         void creditForServicesWithCardEmptyFieldNumber() {
             int statusCode = APIHelper.getRequestStatusCodeCredit(NumberHelper.dataWithCardNumberEmpty());
@@ -97,7 +98,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
         //8. Отправка POST запроса на кредит с пустым значением у атрибута cvc в body (остальные данные заполнены валидно) на http://localhost:8080/api/v1/credit
         //   Ожидаемый результат: статус 400, в БД не появляются новые записи
-        @Test//БАГ карта с пустым полем владелец попадает в бд, со статусом одобрено
+        @Test//БАГ карта с пустым полем cvc попадает в бд, со статусом одобрено
         @DisplayName("APICreditAC № 8 Credit For Services With APPROVED Card CVC Empty Field")
         void creditForServicesWithCardCVCEmpty() {
             int statusCode = APIHelper.getRequestStatusCodeCredit(CVCHelper.approvedCardWithEmptyFieldCVC());
