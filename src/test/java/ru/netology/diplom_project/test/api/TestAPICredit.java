@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         //2. Отправка POST запроса на кредит с валидно заполненным body и Карта Declined на http://localhost:8080/api/v1/credit
         //   Ожидаемый результат: статус 200, появление соответствующей записей в БД
         @Test//OK
-        @DisplayName("TestAPICredit№ 2 Credit For Services With DECLINED Card")
+        @DisplayName("APICredit№ 2 Credit For Services With DECLINED Card")
         void creditForServicesWithDeclinedCard() {
             int statusCode = APIHelper.getRequestStatusCodeCredit(DataGenerator.generateDataWithDeclineCard());
             assertEquals(200, statusCode);

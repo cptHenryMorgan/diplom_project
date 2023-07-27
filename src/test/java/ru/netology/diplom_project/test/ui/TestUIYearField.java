@@ -47,7 +47,7 @@ public class TestUIYearField {
 
     //1. Оставление поля "Год" пустым, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"
     //   Ожидаемый результат: под полем "Год" появиться предупреждение о пустом поле
-    @Test//Баг уже стояла подпись поля неверный формат
+    @Test//Баг подпись поля неверный формат
     @DisplayName("Year Test№ 1 approved Card With Year Empty Field")
     public void approvedCardWithYearOEmptyField() {
         payPage.fillCardData(YearHelper.approvedCardWithYearEmptyField());
@@ -77,12 +77,12 @@ public class TestUIYearField {
 
     //4. Заполнение поля "Год" 1 цифрой, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"
     //   Ожидаемый результат: под полем "Год" появиться предупреждение о невалидном значение
-    @Test//Баг уже стояла подпись поля неверный формат
+    @Test//Баг подпись поля неверный формат
     @DisplayName("Year Test№ 4 approved Card With Year Of 1 number")
     public void approvedCardWithYearOf1numbers() {
         payPage.fillCardData(YearHelper.approvedCardWithYearWithOneNumber());
 
-        payPage.shouldEmptyFieldNotification();//Сообщение Поле обязательно для заполнения
+        payPage.shouldInvalidExpiredDateNotification();//Сообщение Неверно указан срок действия карты
     }
 
     //5. Заполнение поля "Год" 2017, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"

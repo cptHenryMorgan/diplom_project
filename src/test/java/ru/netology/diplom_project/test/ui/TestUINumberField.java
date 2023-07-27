@@ -76,7 +76,7 @@ public class TestUINumberField {
 
     //4. Заполнение поля "Номер карты" 17 рандомными цифрами, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"
     //   Ожидаемый результат: появление сообщения об отказе в оплате тура
-    @Test
+    @Test//ОК
     @DisplayName("CardNumber Test№ 4 Card Number 17 random digit")
     public void dataWithCardNumber17RandomDigit() {
         payPage.fillCardData(NumberHelper.dataWithCardNumber_17_RandomDigit());//поля заполнены валидно, номером действующей карты 17 цифра
@@ -134,7 +134,7 @@ public class TestUINumberField {
 
         payPage.shouldSuccessNotification();//сообщение одобрения банком
     }
-    //10. Заполнение поля "Номер карты" cg запятыми, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"
+    //10. Заполнение поля "Номер карты" c запятыми, остальные поля заполнены валидно в форме "Оплата по карте" тура "Путешествие дня"
     //   Ожидаемый результат: под полем "Номер карты" появиться предупреждение об недопустимых символах
     @Test//OK
     @DisplayName("CardNumber Test№ 10 Card Number With Commas")
