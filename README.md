@@ -1,4 +1,5 @@
-
+#AppVeyor CI
+[![Build status](https://ci.appveyor.com/api/projects/status/wcoc5dqsu56l0l24?svg=true)](https://ci.appveyor.com/project/cptHenryMorgan/diplom-project)
 
 # Дипломный проект по профессии «Тестировщик»
 
