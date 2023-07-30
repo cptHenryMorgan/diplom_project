@@ -122,7 +122,7 @@ public class TestUIAllFields {
 
     //8. Заполнение всех полей валидными данными формы "Кредит по данным карты" тура "Путешествие дня" с последующим переключением
     //    на форму "Оплата по карте" Ожидаемый результат: форма переключиться, поля останутся заполненными теми же данными
-    @Test//OK
+    @Test//Баг форма очищается
     @DisplayName("Test№ 8 Switching from credit according to card data to Payment by card without data reset")
     public void switchingCreditToCardPaymentNotResetData() {
 

@@ -3,6 +3,7 @@ out/
 .DS_Store*
 node_modules
 target
+.dbeaver/
 
 Thumbs.db*
 .DS_Store
