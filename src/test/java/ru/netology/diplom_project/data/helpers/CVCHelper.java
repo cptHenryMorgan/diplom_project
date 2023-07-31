@@ -1,11 +1,9 @@
 package ru.netology.diplom_project.data.helpers;
 
 import com.github.javafaker.Faker;
-import ru.netology.diplom_project.data.DataGenerator;
 
 import java.util.Locale;
 
-import static ru.netology.diplom_project.data.DataGenerator.getNumberByStatus;
 import static ru.netology.diplom_project.data.DataGenerator.symbols;
 
 public class CVCHelper {
@@ -47,57 +45,6 @@ public class CVCHelper {
     public static String generateInvalidCVCWithThreeSymbols() {
         return (symbols("#") + symbols("#") + symbols("#"));
     }
-
-    //ApprovedCard создать CVC из 1й цифры
-    public static DataGenerator.CardData approvedCardWithCVCWithOneDigit() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateInvalidCVCWithOneDigit());
-    }
-
-    //ApprovedCard создать CVC из 4х цифр
-    public static DataGenerator.CardData approvedCardWithCVCWithFourDigit() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateInvalidCVCWithFourDigit());
-    }
-
-    //ApprovedCard создать CVC из 3 Latin
-    public static DataGenerator.CardData approvedCardWithCVCWithThreeSymbolsOfLatin() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateInvalidCVCWithThreeSymbolsOfLatin());
-    }
-
-    //ApprovedCard создать CVC из 3 Cyrillic
-    public static DataGenerator.CardData approvedCardWithCVCWithThreeSymbolsOfCyrillic() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateInvalidCVCWithThreeSymbolsOfCyrillic());
-    }
-
-    //ApprovedCard создать CVC из 3х спецсимволов
-    public static DataGenerator.CardData approvedCardWithCVCWithThreeSymbols() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateInvalidCVCWithThreeSymbols());
-    }
-    //ApprovedCard создать пустое поле CVC
-    public static DataGenerator.CardData approvedCardWithEmptyFieldCVC() {
-        return new DataGenerator.CardData(getNumberByStatus("APPROVED"),
-                MonthHelper.generateMonth(0),
-                YearHelper.generateYear(0),
-                HolderHelper.generateValidHolder(),
-                CVCHelper.generateEmptyFieldCVC());
-    }
 }
+
+

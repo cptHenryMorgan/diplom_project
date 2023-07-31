@@ -3,14 +3,11 @@ package ru.netology.diplom_project.test.api;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.APIHelper;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.DataGenerator;
-import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.*;
 
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,14 +15,9 @@ public class TestAPIPaymentCard {
 
     @BeforeAll
     static void setUpAll() {
-        Awaitility.setDefaultTimeout(Duration.ofSeconds(25));
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
-    @BeforeEach
-    public void cleanTable() {
-        SQLHelper.cleanDatabase();
-    }
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
@@ -63,7 +55,7 @@ public class TestAPIPaymentCard {
     @Test//Баг, код 400 получен, но не обработан, появляется код ошибки 500
     @DisplayName("TestAPIPay№ 4 Payment For Services With Card Empty Field Number")
     void paymentForServicesWithCardEmptyFieldNumber() {
-        int statusCode = APIHelper.getRequestStatusCodePayment(NumberHelper.dataWithCardNumberEmpty());
+        int statusCode = APIHelper.getRequestStatusCodePayment(CardDataGenerator.dataWithCardNumberEmpty());
         assertEquals(400, statusCode);
     }
 
@@ -72,7 +64,7 @@ public class TestAPIPaymentCard {
     @Test//БАГ карта с пустым полем месяц попадает в бд, со статусом одобрено
     @DisplayName("TestAPIPay№ 5 Payment For Services With Month Empty Field")
     void paymentForServicesWithCardEmptyFieldMonth() {
-        int statusCode = APIHelper.getRequestStatusCodePayment(MonthHelper.approvedCardWithMonthEmptyField());
+        int statusCode = APIHelper.getRequestStatusCodePayment(CardDataGenerator.approvedCardWithMonthEmptyField());
         assertEquals(400, statusCode);
     }
 
@@ -81,7 +73,7 @@ public class TestAPIPaymentCard {
     @Test//БАГ карта с пустым полем год попадает в бд, со статусом одобрено
     @DisplayName("TestAPIPay№ 6 Payment For Services With Year Empty Field")
     void paymentForServicesWithCardYearEmptyField() {
-        int statusCode = APIHelper.getRequestStatusCodePayment(YearHelper.approvedCardWithYearEmptyField());
+        int statusCode = APIHelper.getRequestStatusCodePayment(CardDataGenerator.approvedCardWithYearEmptyField());
         assertEquals(400, statusCode);
     }
 
@@ -90,7 +82,7 @@ public class TestAPIPaymentCard {
     @Test//БАГ карта с пустым полем владелец попадает в бд, со статусом одобрено
     @DisplayName("TestAPIPay№ 7 Payment For Services With Holder Empty Field")
     void paymentForServicesWithCardHolderEmpty() {
-        int statusCode = APIHelper.getRequestStatusCodePayment(HolderHelper.approvedCardWithHolderEmpty());
+        int statusCode = APIHelper.getRequestStatusCodePayment(CardDataGenerator.approvedCardWithHolderEmpty());
         assertEquals(400, statusCode);
     }
 
@@ -99,7 +91,7 @@ public class TestAPIPaymentCard {
     @Test//БАГ карта с пустым полем cvc попадает в бд, со статусом одобрено
     @DisplayName("TestAPIPay№ 8 Payment For Services With CVC Empty Field")
     void paymentForServicesWithCardCVCEmpty() {
-        int statusCode = APIHelper.getRequestStatusCodePayment(CVCHelper.approvedCardWithEmptyFieldCVC());
+        int statusCode = APIHelper.getRequestStatusCodePayment(CardDataGenerator.approvedCardWithEmptyFieldCVC());
         assertEquals(400, statusCode);
     }
 

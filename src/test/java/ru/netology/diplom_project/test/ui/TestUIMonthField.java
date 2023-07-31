@@ -3,12 +3,11 @@ package ru.netology.diplom_project.test.ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.MonthHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -29,9 +28,8 @@ public class TestUIMonthField {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -49,7 +47,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 1 approved Card With Month Of 3numbers")
     public void approvedCardWithMonthOf3numbers() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOfThreeNumbers());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOfThreeNumbers());
 
         payPage.shouldSuccessNotification();//Операция одобрена Банком
     }
@@ -59,7 +57,7 @@ public class TestUIMonthField {
     @Test//Баг система допускает введение 00 в поле месяц, нет сообщения о невалидном значении
     @DisplayName("Month Test№ 2 approved Card With Month Of 00 numbers")
     public void approvedCardWithMonthOf00numbers() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOf_00_numbers());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOf_00_numbers());
 
         payPage.shouldInvalidExpiredDateNotification();//Неверно указан срок действия карты
     }
@@ -69,7 +67,7 @@ public class TestUIMonthField {
     @Test//Баг нет автодополнения
     @DisplayName("Month Test№ 3 approved Card With Month Of 1 number")
     public void approvedCardWithMonthOf1numbers() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOfOneNumber());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOfOneNumber());
 
         payPage.shouldSuccessNotification();//Операция одобрена Банком
     }
@@ -79,7 +77,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 4 approved Card With Month Of 12 number")
     public void approvedCardWithMonthOf12numbers() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOf_12_numbers());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOf_12_numbers());
 
         payPage.shouldSuccessNotification();//Операция одобрена Банком
     }
@@ -89,7 +87,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 5 approved Card With Month Of 13 number")
     public void approvedCardWithMonthOf13numbers() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOf_13_numbers());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOf_13_numbers());
 
         payPage.shouldInvalidExpiredDateNotification();//Неверно указан срок действия карты
     }
@@ -99,7 +97,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 6 approved Card With Month Of 2 symbols")
     public void approvedCardWithMonthOf2symbols() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOfTwoSymbols());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOfTwoSymbols());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }
@@ -109,7 +107,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 7 approved Card With Month Of 2 Latin")
     public void approvedCardWithMonthOf2Latin() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOfTwoLatinLetters());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOfTwoLatinLetters());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }
@@ -119,7 +117,7 @@ public class TestUIMonthField {
     @Test//OK
     @DisplayName("Month Test№ 8 approved Card With Month Of 2 Cyrillic")
     public void approvedCardWithMonthOf2Cyrillic() {
-        payPage.fillCardData(MonthHelper.approvedCardWithMonthOfTwoCyrillicLetters());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithMonthOfTwoCyrillicLetters());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }

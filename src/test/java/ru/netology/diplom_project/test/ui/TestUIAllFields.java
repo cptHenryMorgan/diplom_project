@@ -2,14 +2,12 @@ package ru.netology.diplom_project.test.ui;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.val;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -30,9 +28,8 @@ public class TestUIAllFields {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -49,7 +46,7 @@ public class TestUIAllFields {
     @Test//OK
     @DisplayName("Test№ 1 successful transition to card payment")
     void shouldGetPaymentPage() {
-        val mainPage = new MainPage();
+        var mainPage = new MainPage();
         mainPage.choosePaymentCard();
     }
 
@@ -57,7 +54,7 @@ public class TestUIAllFields {
     @Test//OK
     @DisplayName("Test№ 2 successful transition to credit card ")
     void shouldGetCreditPage() {
-        val mainPage = new MainPage();
+        var mainPage = new MainPage();
         mainPage.chooseCreditOnCard();
     }
 

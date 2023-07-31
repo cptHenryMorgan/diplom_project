@@ -2,13 +2,14 @@ package ru.netology.diplom_project.test.sql;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,6 +23,7 @@ public class TestUISQL {
     @BeforeEach
     public void openSource() {
         open("http://localhost:8080");
+        Awaitility.setDefaultTimeout(Duration.ofSeconds(10));
 
     }
 
@@ -46,15 +48,13 @@ public class TestUISQL {
     //    (номер карты заполнен с пробелами после каждых 4 символов) Ожидаемый результат: появление сообщения об успешной оплате тура
     @Test//OK
     @DisplayName("TestUISQL № 1 CardPaymentHappyPath")
-    public void cardPaymentHappyPath() throws InterruptedException {
+    public void cardPaymentHappyPath() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
         payPage.fillCardData(DataGenerator.generateDataWithApprovedCard());//форму заполнить валидно картой с согласием
 
-        TimeUnit.SECONDS.sleep(10);//ожидание
         var paymentCardData = SQLHelper.getPaymentCardData();
 
-        assert paymentCardData != null;
+        Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
         assertEquals("APPROVED", paymentCardData.getStatus());//"УТВЕРЖДЕНО", Данные платежной карты. Получить Статус из БД
     }
 
@@ -62,15 +62,13 @@ public class TestUISQL {
     // Ожидаемый результат: появление сообщения в БД с "DECLINED", Данные платежной карты
     @Test//OK
     @DisplayName("TestUISQL № 2 CardPaymentSadPath")
-    public void cardPaymentSadPath() throws InterruptedException {
+    public void cardPaymentSadPath() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
         payPage.fillCardData(DataGenerator.generateDataWithDeclineCard());//форму заполнить валидно картой с отказом
 
-        TimeUnit.SECONDS.sleep(10);//ожидание
         var paymentCardData = SQLHelper.getPaymentCardData();
 
-        assert paymentCardData != null;
+        Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
         assertEquals("DECLINED", paymentCardData.getStatus());//"DECLINED", Данные платежной карты. Получить Статус из БД
     }
 
@@ -78,12 +76,10 @@ public class TestUISQL {
     // Ожидаемый результат: нет записей в БД
     @Test//OK
     @DisplayName("TestUISQL № 3 CardPaymentEmptyPath")
-    public void cardPaymentEmptyPath() throws InterruptedException {
+    public void cardPaymentEmptyPath() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
 
         payPage.fillCardData(DataGenerator.CardEmptyFields());//пустая форма
-        TimeUnit.SECONDS.sleep(10);//ожидание
 
         var paymentCardData = SQLHelper.getPaymentCardData();
         assertNull(paymentCardData);// Получить Статус из БД нет записей
@@ -95,15 +91,13 @@ public class TestUISQL {
     // (номер карты заполнен с пробелами после каждых 4 символов) Ожидаемый результат: появление сообщения об успешной оплате тура
     @Test//OK
     @DisplayName("TestUISQL № 4 credit On Card Happy Path")
-    public void creditOnCardHappyPath() throws InterruptedException {
+    public void creditOnCardHappyPath() {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
         payPage.fillCardData(DataGenerator.generateDataWithApprovedCard());//форму заполнить валидно картой с согласием
 
-        TimeUnit.SECONDS.sleep(10);//ожидание
         var creditOnCardData = SQLHelper.getCreditCardData();
 
-        assert creditOnCardData != null;
+        Assertions.assertNotNull(creditOnCardData, "creditOnCardData is null");
         assertEquals("APPROVED", creditOnCardData.getStatus());//"УТВЕРЖДЕНО", Данные платежной карты. Получить Статус из БД
     }
 
@@ -111,15 +105,13 @@ public class TestUISQL {
     // Ожидаемый результат: появление сообщения в БД с "DECLINED", Данные платежной карты
     @Test//OK
     @DisplayName("TestUISQL № 5 credit On Card Sad Path")
-    public void creditOnCardSadPath() throws InterruptedException {
+    public void creditOnCardSadPath() {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
         payPage.fillCardData(DataGenerator.generateDataWithDeclineCard());//форму заполнить валидно картой с отказом
 
-        TimeUnit.SECONDS.sleep(10);//ожидание
         var creditOnCardData = SQLHelper.getCreditCardData();
 
-        assert creditOnCardData != null;
+        Assertions.assertNotNull(creditOnCardData, "creditOnCardData is null");
         assertEquals("DECLINED", creditOnCardData.getStatus());//"DECLINED", Данные платежной карты. Получить Статус из БД
     }
 
@@ -127,12 +119,10 @@ public class TestUISQL {
     // Ожидаемый результат: нет записей в БД
     @Test//OK
     @DisplayName("TestUISQL № 6 credit On Card Empty Path")
-    public void creditOnCardEmptyPath() throws InterruptedException {
+    public void creditOnCardEmptyPath() {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
-        TimeUnit.SECONDS.sleep(5);//ожидание
 
         payPage.fillCardData(DataGenerator.CardEmptyFields());//пустая форма
-        TimeUnit.SECONDS.sleep(10);//ожидание
 
         var creditOnCardData = SQLHelper.getCreditCardData();
         assertNull(creditOnCardData);// Получить Статус из БД нет записей

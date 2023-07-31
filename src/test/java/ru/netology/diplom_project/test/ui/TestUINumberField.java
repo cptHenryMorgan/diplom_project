@@ -3,12 +3,11 @@ package ru.netology.diplom_project.test.ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.NumberHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -29,9 +28,8 @@ public class TestUINumberField {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -49,7 +47,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 1 Card Number Without Spaces")
     public void dataWithApprovedCardNumberWithoutSpaces() {
-        payPage.fillCardData(NumberHelper.dataWithApprovedCardNumberWithoutSpaces());//поля заполнены валидно, номером действующей карты без пробелов
+        payPage.fillCardData(CardDataGenerator.dataWithApprovedCardNumberWithoutSpaces());//поля заполнены валидно, номером действующей карты без пробелов
 
         payPage.shouldSuccessNotification();//сообщение одобрения банком
     }
@@ -59,7 +57,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 2 Card Number 1 random digit")
     public void dataWithCardNumberOneRandomDigit() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberOneRandomDigit());//поля заполнены валидно, номером действующей карты 1 цифра
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberOneRandomDigit());//поля заполнены валидно, номером действующей карты 1 цифра
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -69,7 +67,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 3 Card Number 15 random digit")
     public void dataWithCardNumber15RandomDigit() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumber_15_RandomDigit());//поля заполнены валидно, номером действующей карты 15 цифра
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumber_15_RandomDigit());//поля заполнены валидно, номером действующей карты 15 цифра
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -79,7 +77,7 @@ public class TestUINumberField {
     @Test//ОК
     @DisplayName("CardNumber Test№ 4 Card Number 17 random digit")
     public void dataWithCardNumber17RandomDigit() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumber_17_RandomDigit());//поля заполнены валидно, номером действующей карты 17 цифра
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumber_17_RandomDigit());//поля заполнены валидно, номером действующей карты 17 цифра
 
         payPage.shouldFailureNotification();//Сообщение видимое Операция отклонена Банком
     }
@@ -89,7 +87,7 @@ public class TestUINumberField {
     @Test//Баг два сообщения
     @DisplayName("CardNumber Test№ 5 Card Number 16 zero")
     public void dataWithCardNumber16Zero() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumber_16_zero());//поля заполнены валидно, номером действующей карты 16 zero
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumber_16_zero());//поля заполнены валидно, номером действующей карты 16 zero
 
         payPage.shouldFailureNotification();//Сообщение видимое Операция отклонена Банком
         payPage.shouldSuccessNotificationHidden();//Сообщение операция Одобрена не должно быть видимым
@@ -100,7 +98,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 6 Card Number 16 Symbols")
     public void dataWithCardNumber16Symbols() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberWith_16_Symbols());//поля заполнены валидно, номером действующей карты 16 Symbols
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberWith_16_Symbols());//поля заполнены валидно, номером действующей карты 16 Symbols
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -110,7 +108,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 7 Card Number 16 WithLatin")
     public void dataWithCardNumberWithLatin() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberWith_16_Latin());//поля заполнены валидно, номером действующей карты 16 Latin
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberWith_16_Latin());//поля заполнены валидно, номером действующей карты 16 Latin
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -120,7 +118,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 8 Card Number 16 WithCyrillic")
     public void dataWithCardNumberWithCyrillic() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberWith_16_Cyrillic());//поля заполнены валидно, номером действующей карты 16 Cyrillic
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberWith_16_Cyrillic());//поля заполнены валидно, номером действующей карты 16 Cyrillic
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -130,7 +128,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 9 Card Number With Start And End Spaces")
     public void dataWithCardNumberWithStartAndEndSpaces() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberWithStartAndEndSpaces());//поля заполнены валидно, номером действующей карты 16 WithoutStartAndEndSpaces
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberWithStartAndEndSpaces());//поля заполнены валидно, номером действующей карты 16 WithoutStartAndEndSpaces
 
         payPage.shouldSuccessNotification();//сообщение одобрения банком
     }
@@ -139,7 +137,7 @@ public class TestUINumberField {
     @Test//OK
     @DisplayName("CardNumber Test№ 10 Card Number With Commas")
     public void dataWithCardNumberWithCommas() {
-        payPage.fillCardData(NumberHelper.dataWithCardNumberWithCommas());//поля заполнены валидно, номером действующей карты 16 цифры разделены запятыми
+        payPage.fillCardData(CardDataGenerator.dataWithCardNumberWithCommas());//поля заполнены валидно, номером действующей карты 16 цифры разделены запятыми
 
         payPage.shouldFailureNotification();//сообщение отказ банком
     }

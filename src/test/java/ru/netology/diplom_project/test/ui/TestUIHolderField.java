@@ -3,12 +3,11 @@ package ru.netology.diplom_project.test.ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.HolderHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -29,9 +28,8 @@ public class TestUIHolderField {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -49,7 +47,7 @@ public class TestUIHolderField {
     @Test//ОК
     @DisplayName("Holder Test№ 1 Approved Card With Double Last Name")
     public void approvedCardWithDoubleLastName() {
-        payPage.fillCardData(HolderHelper.approvedCardWithDoubleLastName());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithDoubleLastName());
 
         payPage.shouldSuccessNotification();
     }
@@ -59,7 +57,7 @@ public class TestUIHolderField {
     @Test//БАГ возможен нижний регистр
     @DisplayName("Holder Test№ 2 Approved Card With Holder Lower Case")
     public void approvedCardWithHolderLowerCase() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderLowerCase());//пользователь в нижнем регистре
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderLowerCase());//пользователь в нижнем регистре
 
         payPage.shouldImproperFormatNotification();//неверный формат
     }
@@ -69,7 +67,7 @@ public class TestUIHolderField {
     @Test//ОК
     @DisplayName("Holder Test№ 3 Approved Card With Holder Start And End Spaces")
     public void approvedCardWithHolderStartAndEndSpaces() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderStartAndEndSpaces());//пользователь пробелы в начале и конце
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderStartAndEndSpaces());//пользователь пробелы в начале и конце
 
         payPage.shouldSuccessNotification();
     }
@@ -79,7 +77,7 @@ public class TestUIHolderField {
     @Test//Баг возможны дефисы в начале и конце
     @DisplayName("Holder Test№ 4 Approved Card With Holder Start And End Hyphens")
     public void approvedCardWithHolderStartAndEndHyphens() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderStartAndEndHyphens());//пользователь дефисы в начале и конце
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderStartAndEndHyphens());//пользователь дефисы в начале и конце
 
         payPage.shouldImproperFormatNotification();//неверный формат
     }
@@ -89,7 +87,7 @@ public class TestUIHolderField {
     @Test//Баг возможны возможно ввести цифры
     @DisplayName("Holder Test№ 5 Approved Card With Holder Numbers")
     public void approvedCardWithHolderNumbers() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderNumbers());//пользователь цифры
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderNumbers());//пользователь цифры
 
         payPage.shouldImproperFormatNotification();//неверный формат
     }
@@ -100,7 +98,7 @@ public class TestUIHolderField {
     @Test//Баг возможно ввести 1001 букву, нет ограничения по вводу
     @DisplayName("Holder Test№ 6 Approved Card With Holder 1001Letter")
     public void approvedCardWithHolder1001Letter() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolder1_001Letter());//пользователь 1001Letter
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolder1_001Letter());//пользователь 1001Letter
 
         payPage.shouldImproperFormatNotification();//неверный формат
     }
@@ -111,7 +109,7 @@ public class TestUIHolderField {
     @Test//Баг возможно ввести 1 букву
     @DisplayName("Holder Test№ 7 Approved Card With Holder One Letter")
     public void approvedCardWithHolderOneLetter() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderOneLetter());//пользователь одна буква
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderOneLetter());//пользователь одна буква
 
         payPage.shouldEmptyFieldNotification();//Поле обязательно для заполнения
     }
@@ -121,7 +119,7 @@ public class TestUIHolderField {
     @Test//Баг кириллица в поле
     @DisplayName("Holder Test№ 8 approved Card With Holder With Cyrillic Symbols")
     public void approvedCardWithHolderWithCyrillicSymbols() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderWithCyrillicSymbols());//поля заполнены валидно, владелец кириллицей
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderWithCyrillicSymbols());//поля заполнены валидно, владелец кириллицей
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }
@@ -131,7 +129,7 @@ public class TestUIHolderField {
     @Test//Баг возможны спецсимволы
     @DisplayName("Holder Test№ 9 approved Card With Holder Symbols")
     public void approvedCardWithHolderSymbols() {
-        payPage.fillCardData(HolderHelper.approvedCardWithHolderSymbols());//поля заполнены валидно, владелец спецсимволами
+        payPage.fillCardData(CardDataGenerator.approvedCardWithHolderSymbols());//поля заполнены валидно, владелец спецсимволами
 
         payPage.shouldImproperFormatNotification();//видимое Сообщение Неверный формат
     }

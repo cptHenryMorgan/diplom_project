@@ -3,11 +3,13 @@ package ru.netology.diplom_project.test.sql;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.APIHelper;
 import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
 
+import java.time.Duration;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,6 +19,7 @@ public class TestAPISQL {
 
     @BeforeAll
     static void setUpAll() {
+        Awaitility.setDefaultTimeout(Duration.ofSeconds(25));
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
@@ -40,7 +43,7 @@ public class TestAPISQL {
         var creditCardData = SQLHelper.getCreditCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
-        assert creditCardData != null;
+        Assertions.assertNotNull(creditCardData, "creditCardData is null");
         assertEquals("APPROVED", creditCardData.getStatus());//"УТВЕРЖДЕНО", Данные платежной карты. Получить Статус из БД
         assertEquals(200, statusCode, String.valueOf(!Objects.equals(creditCardData.getStatus(), "APPROVED")));
     }
@@ -55,7 +58,7 @@ public class TestAPISQL {
         var creditCardData = SQLHelper.getCreditCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус DECLINED, код должен быть 200
-        assert creditCardData != null;
+        Assertions.assertNotNull(creditCardData, "creditCardData is null");
         assertEquals("DECLINED", creditCardData.getStatus());//"DECLINED", Данные платежной карты. Получить Статус из БД
         assertEquals(200, statusCode, String.valueOf(!Objects.equals(creditCardData.getStatus(), "DECLINED")));
     }
@@ -84,7 +87,7 @@ public class TestAPISQL {
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
-        assert paymentCardData != null;
+        Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
         assertEquals("APPROVED", paymentCardData.getStatus());//"УТВЕРЖДЕНО", Данные платежной карты. Получить Статус из БД
         assertEquals(200, statusCode, String.valueOf(!Objects.equals(paymentCardData.getStatus(), "APPROVED")));
 
@@ -100,7 +103,7 @@ public class TestAPISQL {
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
-        assert paymentCardData != null;
+        Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
         assertEquals("DECLINED", paymentCardData.getStatus());//"УТВЕРЖДЕНО", Данные платежной карты. Получить Статус из БД
         assertEquals(200, statusCode, String.valueOf(!Objects.equals(paymentCardData.getStatus(), "DECLINED")));
     }

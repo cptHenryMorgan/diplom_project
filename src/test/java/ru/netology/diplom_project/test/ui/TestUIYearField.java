@@ -4,12 +4,11 @@ package ru.netology.diplom_project.test.ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.YearHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -30,9 +29,8 @@ public class TestUIYearField {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -50,7 +48,7 @@ public class TestUIYearField {
     @Test//Баг подпись поля неверный формат
     @DisplayName("Year Test№ 1 approved Card With Year Empty Field")
     public void approvedCardWithYearOEmptyField() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearEmptyField());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearEmptyField());
 
         payPage.shouldEmptyFieldNotification();//Сообщение Поле обязательно для заполнения
     }
@@ -60,7 +58,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 2 approved Card With Last Year")
     public void approvedCardWithLastYear() {
-        payPage.fillCardData(YearHelper.approvedCardWithLastYear());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithLastYear());
 
         payPage.shouldExpiredDatePassNotification();//Истёк срок действия карты
     }
@@ -70,7 +68,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 3 approved Card With Valid Year Las tMonth")
     public void approvedCardWithValidYearLastMonth() {
-        payPage.fillCardData(YearHelper.approvedCardWithValidYearLastMonth());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithValidYearLastMonth());
 
         payPage.shouldInvalidExpiredDateNotification();//Неверно указан срок действия карты
     }
@@ -80,7 +78,7 @@ public class TestUIYearField {
     @Test//Баг подпись поля неверный формат
     @DisplayName("Year Test№ 4 approved Card With Year Of 1 number")
     public void approvedCardWithYearOf1numbers() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearWithOneNumber());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearWithOneNumber());
 
         payPage.shouldInvalidExpiredDateNotification();//Сообщение Неверно указан срок действия карты
     }
@@ -90,7 +88,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 5 approved Card With Year 2017")
     public void approvedCardWithYear2017() {
-        payPage.fillCardData(YearHelper.approvedCardWithYear2017());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYear2017());
 
         payPage.shouldExpiredDatePassNotification();//истёк срок действия карты
     }
@@ -100,7 +98,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 6 approved Card Year Plus 6")
     public void approvedCardYearPlus6() {
-        payPage.fillCardData(YearHelper.approvedCardYearPlusSix());
+        payPage.fillCardData(CardDataGenerator.approvedCardYearPlusSix());
 
         payPage.shouldInvalidExpiredDateNotification();//Неверно указан срок действия карты
     }
@@ -110,7 +108,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 7 approved Card With Year Of 2 symbols")
     public void approvedCardWithYearOf2symbols() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearWithTwoSymbols());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearWithTwoSymbols());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }
@@ -120,7 +118,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 8 approved Card With Year Of 2 Latin")
     public void approvedCardWithYearOf2Latin() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearWithTwoLatinLetters());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearWithTwoLatinLetters());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }
@@ -130,7 +128,7 @@ public class TestUIYearField {
     @Test//ОК
     @DisplayName("Year Test№ 9 approved Card With Year Of 2 Cyrillic")
     public void approvedCardWithYearOf2Cyrillic() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearWithTwoCyrillicLetters());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearWithTwoCyrillicLetters());
 
         payPage.shouldImproperFormatNotification();//отображение сообщения Неверный формат
     }
@@ -140,7 +138,7 @@ public class TestUIYearField {
     @Test//OK
     @DisplayName("Year Test№ 10 approved Card With 00 numbers")
     public void approvedCardWithYearWith_00_numbers() {
-        payPage.fillCardData(YearHelper.approvedCardWithYearWith_00_numbers());
+        payPage.fillCardData(CardDataGenerator.approvedCardWithYearWith_00_numbers());
 
         payPage.shouldExpiredDatePassNotification();//Истек срок действия карты
     }

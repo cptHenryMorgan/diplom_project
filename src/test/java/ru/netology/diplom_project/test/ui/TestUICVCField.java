@@ -3,12 +3,11 @@ package ru.netology.diplom_project.test.ui;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.CVCHelper;
 import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -29,9 +28,8 @@ public class TestUICVCField {
     }
 
     @BeforeEach
-    void setUpChoosePaymentCard() throws InterruptedException {
+    void setUpChoosePaymentCard() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-        TimeUnit.SECONDS.sleep(6);//ожидание
     }
 
     @BeforeEach
@@ -49,7 +47,7 @@ public class TestUICVCField {
     @Test//Баг сообщения
     @DisplayName("CVC Test№ 1 approved Card With CVC With 1 Digit")
     public void approvedCardWithCVCWith1Digit() {
-        payPage.fillCardData(CVCHelper.approvedCardWithCVCWithOneDigit());//поля заполнены валидно, номером CVC 1 цифра
+        payPage.fillCardData(CardDataGenerator.approvedCardWithCVCWithOneDigit());//поля заполнены валидно, номером CVC 1 цифра
 
         payPage.shouldEmptyFieldNotification();//видимое Сообщение поле обязательно для заполнения
     }
@@ -60,7 +58,7 @@ public class TestUICVCField {
     @Test//ОК
     @DisplayName("CVC Test№ 2 approved Card With CVC With 4 Digit")
     public void approvedCardWithCVCWith4Digit() {
-        payPage.fillCardData(CVCHelper.approvedCardWithCVCWithFourDigit());//поля заполнены валидно, номером CVC 4 цифра
+        payPage.fillCardData(CardDataGenerator.approvedCardWithCVCWithFourDigit());//поля заполнены валидно, номером CVC 4 цифра
 
         payPage.shouldSuccessNotification();//видимое Сообщение 'успешно', CVC обрезан до 3х символов
     }
@@ -70,7 +68,7 @@ public class TestUICVCField {
     @Test//ОК
     @DisplayName("CVC Test№ 3 approved Card With CVC With 3 Latin")
     public void approvedCardWithCVCWith3Latin() {
-        payPage.fillCardData(CVCHelper.approvedCardWithCVCWithThreeSymbolsOfLatin());//поля заполнены валидно, номером CVC 3Latin
+        payPage.fillCardData(CardDataGenerator.approvedCardWithCVCWithThreeSymbolsOfLatin());//поля заполнены валидно, номером CVC 3Latin
 
         payPage.shouldImproperFormatNotification();//видимое отображение сообщения Неверный формат
     }
@@ -80,7 +78,7 @@ public class TestUICVCField {
     @Test//ОК
     @DisplayName("CVC Test№ 4 approved Card With CVC With 3 Cyrillic")
     public void approvedCardWithCVCWith3Cyrillic() {
-        payPage.fillCardData(CVCHelper.approvedCardWithCVCWithThreeSymbolsOfCyrillic());//поля заполнены валидно, номером CVC 3 Cyrillic
+        payPage.fillCardData(CardDataGenerator.approvedCardWithCVCWithThreeSymbolsOfCyrillic());//поля заполнены валидно, номером CVC 3 Cyrillic
 
         payPage.shouldImproperFormatNotification();//видимое отображение сообщения Неверный формат
     }
@@ -90,7 +88,7 @@ public class TestUICVCField {
     @Test//ОК
     @DisplayName("CVC Test№ 5 approved Card With CVC With 3 Symbols")
     public void approvedCardWithCVCWith3Symbols() {
-        payPage.fillCardData(CVCHelper.approvedCardWithCVCWithThreeSymbols());//поля заполнены валидно, номером CVC из 3 символов
+        payPage.fillCardData(CardDataGenerator.approvedCardWithCVCWithThreeSymbols());//поля заполнены валидно, номером CVC из 3 символов
 
         payPage.shouldImproperFormatNotification();//видимое отображение сообщения Неверный формат
     }
@@ -100,7 +98,7 @@ public class TestUICVCField {
     @Test//Баг подписи
     @DisplayName("CVC Test№ 6 approved Card With CVC Empty")
     public void approvedCardWithCVCEmpty() {
-        payPage.fillCardData(CVCHelper.approvedCardWithEmptyFieldCVC());//поля заполнены валидно, номером CVC из 3 симвлов
+        payPage.fillCardData(CardDataGenerator.approvedCardWithEmptyFieldCVC());//поля заполнены валидно, номером CVC из 3 симвлов
 
         payPage.shouldImproperFormatNotificationHidden();//не видимое сообщения Неверный формат
         payPage.shouldEmptyFieldNotification();//видимое Сообщение поле обязательно для заполнения

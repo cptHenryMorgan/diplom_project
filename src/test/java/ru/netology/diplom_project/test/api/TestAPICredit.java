@@ -5,9 +5,9 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
 import ru.netology.diplom_project.data.APIHelper;
+import ru.netology.diplom_project.data.CardDataGenerator;
 import ru.netology.diplom_project.data.DataGenerator;
 import ru.netology.diplom_project.data.SQLHelper;
-import ru.netology.diplom_project.data.helpers.*;
 
 import java.time.Duration;
 
@@ -65,7 +65,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test//Баг, код 400 получен, но не обработан, появляется код ошибки 500
         @DisplayName("APICreditAC № 4 Credit For Services With APPROVED Card Empty Field Number")
         void creditForServicesWithCardEmptyFieldNumber() {
-            int statusCode = APIHelper.getRequestStatusCodeCredit(NumberHelper.dataWithCardNumberEmpty());
+            int statusCode = APIHelper.getRequestStatusCodeCredit(CardDataGenerator.dataWithCardNumberEmpty());
             assertEquals(400, statusCode);
         }
 
@@ -74,7 +74,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test//БАГ карта с пустым полем месяц попадает в бд, со статусом одобрено
         @DisplayName("APICreditAC № 5 Credit For Services With APPROVED Card Month Empty Field")
         void creditForServicesWithCardEmptyFieldMonth() {
-            int statusCode = APIHelper.getRequestStatusCodeCredit(MonthHelper.approvedCardWithMonthEmptyField());
+            int statusCode = APIHelper.getRequestStatusCodeCredit(CardDataGenerator.approvedCardWithMonthEmptyField());
             assertEquals(400, statusCode);
         }
 
@@ -83,7 +83,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test//БАГ карта с пустым полем год попадает в бд, со статусом одобрено
         @DisplayName("APICreditAC № 6 Credit For Services With APPROVED Card Year Empty Field")
         void creditForServicesWithCardYearEmptyField() {
-            int statusCode = APIHelper.getRequestStatusCodeCredit(YearHelper.approvedCardWithYearEmptyField());
+            int statusCode = APIHelper.getRequestStatusCodeCredit(CardDataGenerator.approvedCardWithYearEmptyField());
             assertEquals(400, statusCode);
         }
 
@@ -92,7 +92,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test//БАГ карта с пустым полем владелец попадает в бд, со статусом одобрено
         @DisplayName("APICreditAC № 7 Credit For Services With APPROVED Card Holder Empty Field")
         void creditForServicesWithCardHolderEmpty() {
-            int statusCode = APIHelper.getRequestStatusCodeCredit(HolderHelper.approvedCardWithHolderEmpty());
+            int statusCode = APIHelper.getRequestStatusCodeCredit(CardDataGenerator.approvedCardWithHolderEmpty());
             assertEquals(400, statusCode);
         }
 
@@ -101,7 +101,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         @Test//БАГ карта с пустым полем cvc попадает в бд, со статусом одобрено
         @DisplayName("APICreditAC № 8 Credit For Services With APPROVED Card CVC Empty Field")
         void creditForServicesWithCardCVCEmpty() {
-            int statusCode = APIHelper.getRequestStatusCodeCredit(CVCHelper.approvedCardWithEmptyFieldCVC());
+            int statusCode = APIHelper.getRequestStatusCodeCredit(CardDataGenerator.approvedCardWithEmptyFieldCVC());
             assertEquals(400, statusCode);
         }
     }

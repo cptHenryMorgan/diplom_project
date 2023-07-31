@@ -2,11 +2,9 @@ package ru.netology.diplom_project.data;
 
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class SQLHelper {
     private static final String url = System.getProperty("db.url");
@@ -25,33 +23,17 @@ public class SQLHelper {
     @SneakyThrows
     public static DataGenerator.CreditEntity getCreditCardData() {
         var cardDataSQL = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            return runner.query(conn, cardDataSQL, new BeanHandler<>(DataGenerator.CreditEntity.class));
-        } catch (SQLException exception) {//поймать исключение SQL
-            exception.printStackTrace();//Исключение sql. распечатать трассировку стека()
-        }
+
         return null;
     }
     @SneakyThrows
     public static DataGenerator.PaymentEntity getPaymentCardData() {
         var cardDataSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            return runner.query(conn, cardDataSQL, new BeanHandler<>(DataGenerator.PaymentEntity.class));
-
-        } catch (SQLException exception) {//поймать исключение SQL
-            exception.printStackTrace();//Исключение sql. распечатать трассировку стека()
-        }
         return null;
     }
     @SneakyThrows
     public static DataGenerator.OrderEntity getTableOrderEntity() {
         var orderEntityDataSQL = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1";
-        try (var conn = getConn()) {
-            var result = runner.query(conn, orderEntityDataSQL, new BeanHandler<>(DataGenerator.OrderEntity.class));
-            return result;
-        } catch (SQLException exception) {//поймать исключение SQL
-            exception.printStackTrace();//Исключение sql. распечатать трассировку стека()
-        }
         return null;
     }
 
