@@ -10,7 +10,6 @@ import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ public class TestUISQL {
 
     @BeforeAll
     static void setUpAll() {
-        Awaitility.setDefaultTimeout(Duration.ofSeconds(25));
+        Awaitility.setDefaultTimeout(Duration.ofSeconds(20));
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
@@ -68,6 +67,7 @@ public class TestUISQL {
         mainPage.choosePaymentCard();//выбрать оплату по карте
         payPage.fillCardData(DataGenerator.generateDataWithDeclineCard());//форму заполнить валидно картой с отказом
 
+        Awaitility.await().until(() -> SQLHelper.getPaymentCardData() != null);
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
@@ -80,7 +80,6 @@ public class TestUISQL {
     @DisplayName("TestUISQL № 3 CardPaymentEmptyPath")
     public void cardPaymentEmptyPath() {
         mainPage.choosePaymentCard();//выбрать оплату по карте
-
         payPage.fillCardData(DataGenerator.CardEmptyFields());//пустая форма
 
         var paymentCardData = SQLHelper.getPaymentCardData();
@@ -97,6 +96,7 @@ public class TestUISQL {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
         payPage.fillCardData(DataGenerator.generateDataWithApprovedCard());//форму заполнить валидно картой с согласием
 
+        Awaitility.await().until(() -> SQLHelper.getCreditCardData() != null);
         var creditOnCardData = SQLHelper.getCreditCardData();
 
         Assertions.assertNotNull(creditOnCardData, "creditOnCardData is null");
@@ -111,6 +111,7 @@ public class TestUISQL {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
         payPage.fillCardData(DataGenerator.generateDataWithDeclineCard());//форму заполнить валидно картой с отказом
 
+        Awaitility.await().until(() -> SQLHelper.getCreditCardData() != null);
         var creditOnCardData = SQLHelper.getCreditCardData();
 
         Assertions.assertNotNull(creditOnCardData, "creditOnCardData is null");
@@ -123,7 +124,6 @@ public class TestUISQL {
     @DisplayName("TestUISQL № 6 credit On Card Empty Path")
     public void creditOnCardEmptyPath() {
         mainPage.chooseCreditOnCard();//выбрать кредит по карте
-
         payPage.fillCardData(DataGenerator.CardEmptyFields());//пустая форма
 
         var creditOnCardData = SQLHelper.getCreditCardData();

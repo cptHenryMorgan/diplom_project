@@ -40,6 +40,7 @@ public class TestAPISQL {
     void creditAPIAndSQLHappyPath() {
         var cardInfo = DataGenerator.generateDataWithApprovedCard();
         var statusCode = APIHelper.getRequestStatusCodeCredit(cardInfo);
+        Awaitility.await().until(() -> SQLHelper.getCreditCardData() != null);
         var creditCardData = SQLHelper.getCreditCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
@@ -55,6 +56,7 @@ public class TestAPISQL {
     void creditAPIAndSQLSadPath() {
         var cardInfo = DataGenerator.generateDataWithDeclineCard();
         var statusCode = APIHelper.getRequestStatusCodeCredit(cardInfo);
+        Awaitility.await().until(() -> SQLHelper.getCreditCardData() != null);
         var creditCardData = SQLHelper.getCreditCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус DECLINED, код должен быть 200
@@ -70,6 +72,7 @@ public class TestAPISQL {
     void creditForServicesWithEmptyCard() {
         var cardInfo = DataGenerator.CardEmptyFields();
         var statusCode = APIHelper.getRequestStatusCodeCredit(cardInfo);
+
         var creditCardData = SQLHelper.getCreditCardData();
 
         assertEquals(400, statusCode);//проверка статуса API карта пустое тело, код должен быть 400
@@ -84,6 +87,7 @@ public class TestAPISQL {
     void paymentAPIAndSQLHappyPath() {
         var cardInfo = DataGenerator.generateDataWithApprovedCard();
         var statusCode = APIHelper.getRequestStatusCodePayment(cardInfo);
+        Awaitility.await().until(() -> SQLHelper.getPaymentCardData() != null);
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
@@ -100,6 +104,7 @@ public class TestAPISQL {
     void paymentAPIAndSQLSadPath() {
         var cardInfo = DataGenerator.generateDataWithDeclineCard();
         var statusCode = APIHelper.getRequestStatusCodePayment(cardInfo);
+        Awaitility.await().until(() -> SQLHelper.getPaymentCardData() != null);
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         assertEquals(200, statusCode);//проверка статуса API карта валидная статус APPROVED, код должен быть 200
@@ -115,6 +120,7 @@ public class TestAPISQL {
     void paymentForServicesWithEmptyCard() {
         var cardInfo = DataGenerator.CardEmptyFields();
         var statusCode = APIHelper.getRequestStatusCodePayment(cardInfo);
+
         var creditCardData = SQLHelper.getPaymentCardData();
 
         assertEquals(400, statusCode);//проверка статуса API карта пустое тело, код должен быть 400
