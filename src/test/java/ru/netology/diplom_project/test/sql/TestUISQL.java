@@ -10,6 +10,7 @@ import ru.netology.diplom_project.page.MainPage;
 import ru.netology.diplom_project.page.PayPage;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,12 +24,12 @@ public class TestUISQL {
     @BeforeEach
     public void openSource() {
         open("http://localhost:8080");
-        Awaitility.setDefaultTimeout(Duration.ofSeconds(10));
 
     }
 
     @BeforeAll
     static void setUpAll() {
+        Awaitility.setDefaultTimeout(Duration.ofSeconds(25));
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
@@ -52,6 +53,7 @@ public class TestUISQL {
         mainPage.choosePaymentCard();//выбрать оплату по карте
         payPage.fillCardData(DataGenerator.generateDataWithApprovedCard());//форму заполнить валидно картой с согласием
 
+        Awaitility.await().until(() -> SQLHelper.getPaymentCardData() != null);
         var paymentCardData = SQLHelper.getPaymentCardData();
 
         Assertions.assertNotNull(paymentCardData, "paymentCardData is null");
